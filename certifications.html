@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adjalle Sydoine — Certifications</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #0a0f1e; color: #e2e8f0; min-height: 100vh; }
+
+  nav {
+    background: rgba(10,15,30,0.95);
+    border-bottom: 1px solid rgba(99,179,237,0.15);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+  }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #63b3ed; letter-spacing: -0.5px; }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links a { color: #94a3b8; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: #63b3ed; }
+  .nav-links a.active { color: #63b3ed; }
+
+  .hero {
+    background: linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a1628 100%);
+    border-bottom: 1px solid rgba(99,179,237,0.1);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(99,179,237,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block; background: rgba(99,179,237,0.1);
+    border: 1px solid rgba(99,179,237,0.25); color: #63b3ed;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 1.25rem;
+  }
+  .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 40px); font-weight: 700; color: #f1f5f9; line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -1px; }
+  .hero h1 span { color: #63b3ed; }
+  .hero p { color: #64748b; font-size: 14px; max-width: 480px; margin: 0 auto; line-height: 1.6; }
+
+  main { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #63b3ed; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(99,179,237,0.15); }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .cert-card {
+    background: #0d1525;
+    border: 1px solid rgba(99,179,237,0.1);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+    position: relative;
+  }
+  .cert-card:hover {
+    border-color: rgba(99,179,237,0.3);
+    background: #111d33;
+    transform: translateY(-2px);
+  }
+  .cert-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #63b3ed, transparent); opacity: 0.4;
+  }
+
+  .cert-badge {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid rgba(99,179,237,0.08);
+  }
+
+  .cert-info {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .cert-issuer {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #63b3ed;
+    margin-bottom: 6px;
+  }
+
+  .cert-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #e2e8f0;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .cert-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cert-date {
+    font-size: 11px;
+    color: #475569;
+  }
+
+  .cert-badge-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #22c55e;
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  /* Card spéciale pour le PDF (Claude 101) */
+  .cert-card-pdf .cert-preview {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #1a1f35, #0d1525);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(99,179,237,0.08);
+    gap: 12px;
+  }
+
+  .cert-card-pdf .cert-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: -1px;
+  }
+
+  .cert-card-pdf .cert-logo span {
+    color: #63b3ed;
+  }
+
+  .cert-card-pdf .cert-course {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #63b3ed;
+  }
+
+  .cert-card-pdf .cert-completion {
+    font-size: 11px;
+    color: #475569;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  footer { border-top: 1px solid rgba(99,179,237,0.08); padding: 1.25rem 2rem; text-align: center; }
+  .footer-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #63b3ed; font-size: 14px; }
+  .copyright { color: #334155; font-size: 11px; margin-top: 0.4rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">AdjalleSydoine</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="portfolio-e5.html">Portfolio - E5</a></li>
+    <li><a href="#">Epreuve - E6</a></li>
+    <li><a href="#">Veille Technologique</a></li>
+    <li><a href="certifications.html" class="active">Certifications</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">BTS SIO — Option SISR</div>
+  <h1>Mes <span>Certifications</span></h1>
+  <p>Certifications obtenues au cours de ma formation en informatique.</p>
+</div>
+
+<main>
+  <div class="section-label">Certifications obtenues</div>
+
+  <div class="certs-grid">
+
+    <!-- Claude 101 -->
+    <a href="claude101.pdf" target="_blank" class="cert-card cert-card-pdf">
+      <div class="cert-preview">
+        <div class="cert-completion">Certificate of Completion</div>
+        <div class="cert-logo">ANTHROP<span>\C</span></div>
+        <div class="cert-course">Claude 101</div>
+      </div>
+      <div class="cert-info">
+        <div class="cert-issuer">Anthropic</div>
+        <div class="cert-name">Claude 101</div>
+        <div class="cert-meta">
+          <span class="cert-date">Mai 2026</span>
+          <span class="cert-badge-verified">✓ Vérifié</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Cisco Cybersecurity -->
+    <a href="cisco-cybersecurity.png" target="_blank" class="cert-card">
+      <img src="cisco-cybersecurity.png" alt="Introduction to Cybersecurity" class="cert-badge">
+      <div class="cert-info">
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-name">Introduction to Cybersecurity</div>
+        <div class="cert-meta">
+          <span class="cert-date">2025 – 2026</span>
+          <span class="cert-badge-verified">✓ Vérifié</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Cisco Networking Basics -->
+    <a href="cisco-networking.png" target="_blank" class="cert-card">
+      <img src="cisco-networking.png" alt="Networking Basics" class="cert-badge">
+      <div class="cert-info">
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-name">Networking Basics</div>
+        <div class="cert-meta">
+          <span class="cert-date">2025 – 2026</span>
+          <span class="cert-badge-verified">✓ Vérifié</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-name">Adjalle Sydoine</div>
+  <p class="copyright">© 2025. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

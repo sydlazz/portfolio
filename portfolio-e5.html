@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adjalle Sydoine — Portfolio E5</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #0a0f1e; color: #e2e8f0; min-height: 100vh; }
+
+  nav {
+    background: rgba(10,15,30,0.95);
+    border-bottom: 1px solid rgba(99,179,237,0.15);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+  }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #63b3ed; letter-spacing: -0.5px; }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links a { color: #94a3b8; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: #63b3ed; }
+  .nav-links a.active { color: #63b3ed; }
+
+  .hero {
+    background: linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a1628 100%);
+    border-bottom: 1px solid rgba(99,179,237,0.1);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(99,179,237,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block; background: rgba(99,179,237,0.1);
+    border: 1px solid rgba(99,179,237,0.25); color: #63b3ed;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 1.25rem;
+  }
+  .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 40px); font-weight: 700; color: #f1f5f9; line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -1px; }
+  .hero h1 span { color: #63b3ed; }
+  .hero p { color: #64748b; font-size: 14px; max-width: 480px; margin: 0 auto; line-height: 1.6; }
+
+  main { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #63b3ed; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(99,179,237,0.15); }
+
+  .projects-grid {
+    display: grid; gap: 1px;
+    background: rgba(99,179,237,0.08);
+    border: 1px solid rgba(99,179,237,0.08);
+    border-radius: 12px; overflow: hidden; margin-bottom: 3rem;
+  }
+  .project-card {
+    background: #0d1525; padding: 1.6rem 2rem;
+    display: grid; grid-template-columns: 48px 1fr auto;
+    gap: 1.25rem; align-items: start; transition: background 0.2s;
+  }
+  .project-card:hover { background: #111d33; }
+  .project-num {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(99,179,237,0.08); border: 1px solid rgba(99,179,237,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #63b3ed;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .project-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #e2e8f0; margin-bottom: 6px; line-height: 1.3; }
+  .project-info p { font-size: 13px; color: #475569; line-height: 1.6; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 5px; background: rgba(99,179,237,0.08); color: #63b3ed; border: 1px solid rgba(99,179,237,0.15); }
+  .project-link {
+    display: flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 8px;
+    border: 1px solid rgba(99,179,237,0.2); color: #63b3ed;
+    text-decoration: none; font-size: 15px; transition: all 0.2s; flex-shrink: 0; margin-top: 4px;
+  }
+  .project-link:hover { background: rgba(99,179,237,0.1); border-color: rgba(99,179,237,0.4); }
+
+  .downloads-section { margin-bottom: 3rem; }
+  .download-card {
+    background: #0d1525; border: 1px solid rgba(99,179,237,0.1);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none; transition: all 0.2s; width: 100%;
+  }
+  .download-card:hover { border-color: rgba(99,179,237,0.3); background: #111d33; }
+  .dl-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(34,197,94,0.1); }
+  .dl-info { flex: 1; min-width: 0; }
+  .dl-info strong { display: block; font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 2px; }
+  .dl-info span { font-size: 11px; color: #475569; }
+  .dl-arrow { color: #334155; font-size: 16px; }
+
+  footer { border-top: 1px solid rgba(99,179,237,0.08); padding: 1.25rem 2rem; text-align: center; }
+  .footer-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #63b3ed; font-size: 14px; }
+  .copyright { color: #334155; font-size: 11px; margin-top: 0.4rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">AdjalleSydoine</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="portfolio-e5.html" class="active">Portfolio - E5</a></li>
+    <li><a href="#">Epreuve - E6</a></li>
+    <li><a href="#">Veille Technologique</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">BTS SIO — Option SISR</div>
+  <h1>Mes projets pour l'épreuve <span>E-5</span></h1>
+  <p>Découvrez mes réalisations en administration des systèmes et réseaux.</p>
+</div>
+
+<main>
+  <div class="section-label">Projets réalisés</div>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-info">
+        <h3>Mise en place d'un réseau composé de VLANs Wifi et machine virtuelle</h3>
+        <p>Mise en place d'une infrastructure réseau avec deux VLANs (VLAN 10 et VLAN 11), un lien trunk entre switch et routeur, routage inter-VLAN, création et configuration de machines virtuelles sous VMware, et installation complète de Windows.</p>
+        <div class="project-tags">
+          <span class="tag">VLAN</span>
+          <span class="tag">VMware</span>
+          <span class="tag">Windows</span>
+          <span class="tag">Routage inter-VLAN</span>
+        </div>
+      </div>
+      <a href="tp_reseau.pdf" target="_blank" class="project-link">↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-info">
+        <h3>Mise en place d'un réseau VLAN Wifi avec switch de niveau 3 — AdnaExpertPlus</h3>
+        <p>Configuration d'un switch Cisco NV3 (niveau 3) avec deux VLANs : VLAN 10 (ADMIN_WIFI) et VLAN 11 (TECH). Routage inter-VLAN via interfaces SVI, DHCP sur le switch, intégration d'un point d'accès Wi-Fi Netgear et tests de connectivité.</p>
+        <div class="project-tags">
+          <span class="tag">Switch NV3</span>
+          <span class="tag">SVI</span>
+          <span class="tag">DHCP</span>
+          <span class="tag">Wi-Fi</span>
+          <span class="tag">Cisco</span>
+        </div>
+      </div>
+      <a href="tp_reseau_reformate.pdf" target="_blank" class="project-link">↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-info">
+        <h3>Infrastructure réseau VLANs avec routeur-on-a-stick et Windows Server — Adna Expert</h3>
+        <p>Mise en place de deux VLANs (VLAN_WINDOWS et VLAN_LINUX) avec un routeur Cisco en router-on-a-stick, DHCP par VLAN, NAT PAT pour l'accès Internet, et configuration d'un Windows Server (AD DS / DNS) avec domaine mondomaine.local.</p>
+        <div class="project-tags">
+          <span class="tag">Router-on-a-stick</span>
+          <span class="tag">NAT PAT</span>
+          <span class="tag">Windows Server</span>
+          <span class="tag">AD DS</span>
+          <span class="tag">DNS</span>
+        </div>
+      </div>
+      <a href="tp_reseau_v211.pdf" target="_blank" class="project-link">↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">04</div>
+      <div class="project-info">
+        <h3>Mise en place d'un outil de gestion de parc et de suivi des incidents</h3>
+        <p>Installation et configuration du logiciel GLPI sous une VM Debian 12, installation de l'agent sur un poste Linux et Windows. Réalisation de tests de gestion des incidents (tickets).</p>
+        <div class="project-tags">
+          <span class="tag">GLPI</span>
+          <span class="tag">Debian 12</span>
+          <span class="tag">Helpdesk</span>
+        </div>
+      </div>
+      <a href="SOP_pour_MDE_MC3300ax.docx" target="_blank" class="project-link">↗</a>
+    </div>
+
+  </div>
+
+  <div class="downloads-section">
+    <div class="section-label">Document de synthèse</div>
+    <a href="8_-_EPREUVE_ORALE_E5_-_MODELE_DE_TABLEAU_DE_SYNTHESE_ANNEXE_VI-1_-_BTS_SIO_2026.xlsx" class="download-card" download>
+      <div class="dl-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+      </div>
+      <div class="dl-info">
+        <strong>Tableau de synthèse — Annexe VI</strong>
+        <span>Epreuve orale E5 — Adjalle Sydoine — BTS SIO 2026</span>
+      </div>
+      <span class="dl-arrow">↓</span>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-name">Adjalle Sydoine</div>
+  <p class="copyright">© 2025. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
